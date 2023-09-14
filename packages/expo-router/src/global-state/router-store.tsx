@@ -3,7 +3,12 @@ import {
   getPathFromState,
   useNavigationContainerRef,
 } from "@react-navigation/native";
-import { useSyncExternalStore, useMemo, ComponentType, Fragment } from "react";
+import {
+  useSyncExternalStore,
+  useEffect,
+  ComponentType,
+  Fragment,
+} from "react";
 
 import { UrlObject, getRouteInfoFromState } from "../LocationProvider";
 import { RouteNode } from "../Route";
@@ -242,10 +247,11 @@ export function useInitializeExpoRouter(
   initialLocation: URL | undefined
 ) {
   const navigationRef = useNavigationContainerRef();
-  useMemo(
+  useEffect(
     () => store.initialize(context, navigationRef, initialLocation),
     [context, initialLocation]
   );
+
   useExpoRouter();
   return store;
 }
